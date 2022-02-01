@@ -1,24 +1,32 @@
-import logo from './logo.svg';
 import './App.css';
+import * as apiCalls from './Api/apiCalls'
+import { LoginPageOld } from './Pages/LoginPageOld'
+import UserSignUpPage from './Pages/UserSignUpPage';
+import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom'
+import MainHeader from './Components/MainHeader'
+import HomePage from './Pages/HomePage'
+import OtherPage from './Pages/OtherPage'
+import { replace } from 'formik';
 
 function App() {
+
+  const actions = {
+    postLogin: apiCalls.login,
+    postSignUp: apiCalls.signUp,
+  }
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <BrowserRouter>
+      <MainHeader />
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/other" element={<OtherPage />} />
+        <Route path="/login" element={<LoginPageOld actions={actions} />} />
+        <Route path="/signup" element={<UserSignUpPage actions={actions} />} />
+
+
+       
+      </Routes>
+    </BrowserRouter>
   );
 }
 
